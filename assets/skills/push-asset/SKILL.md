@@ -14,7 +14,7 @@ pull-assets と対になる、逆方向の同期。
 
 - `/push-asset <type> <name>` - feature branch を作成し push、PR 作成ステップを案内
 - `/push-asset <type> <name> --dry-run` - 差分表示のみ
-- `/push-asset <type> <name> --auto-pr` - PR 作成まで自動実行
+- `/push-asset <type> <name> --auto-merge` - PR 作成 → squash merge → branch 削除 → local main 同期まで自動実行
 
 `<type>` は skills / agents / hooks / commands / mcp など、プロジェクトの `.claude/` 直下にあるディレクトリ名。
 
@@ -23,7 +23,7 @@ pull-assets と対になる、逆方向の同期。
 ### Step 1: 引数パース
 
 - `<type>`, `<name>` を必須引数として取得
-- `--dry-run`, `--auto-pr` フラグを解釈
+- `--dry-run`, `--auto-merge` フラグを解釈
 
 ### Step 2: プロジェクト側の対象確認
 
@@ -87,17 +87,21 @@ git commit -m "feat(<type>): add <name>"
 git push -u origin feat/push-<type>-<name>
 ```
 
-### Step 8: PR の作成
+### Step 8: PR 作成 + 自動 merge
 
-`--auto-pr` 指定時のみ自動実行:
+`--auto-merge` 指定時は PR 作成から squash merge、remote branch 削除、local main 同期まで一気通貫で自動実行:
 
 ```
+cd <repo>
 gh pr create --base main --head feat/push-<type>-<name> \
   --title "feat(<type>): add <name>" \
   --body "プロジェクト <project-name> から push-asset で追加。<簡単な説明>"
+gh pr merge --squash --delete-branch
+git checkout main && git pull --ff-only origin main
+git branch -D feat/push-<type>-<name>
 ```
 
-指定がなければ、同じコマンドをユーザーに案内して終了。PR 作成後、GitHub 上で merge する。
+指定がなければ PR 作成コマンドをユーザーに案内して終了する。ユーザーが GitHub 上で内容を確認してから merge する運用になる。
 
 ### Step 9: 他プロジェクトへの反映手順を案内
 
