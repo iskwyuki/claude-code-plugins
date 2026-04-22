@@ -1,0 +1,17 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "claude-code-plugins",
+  "description": "iskwyuki 個人用 Claude Code アセットの配信基盤。bootstrap skill と共通 skills/agents を提供",
+  "owner": {
+    "name": "iskwyuki"
+  },
+  "plugins": [
+    {
+      "name": "claude-code-plugins",
+      "description": "bootstrap + pull-assets/push-asset + 共通 skills/agents の配信プラグイン",
+      "source": "./",
+      "category": "development",
+      "homepage": "https://github.com/iskwyuki/claude-code-plugins"
+    }
+  ]
+}
