@@ -1,6 +1,6 @@
 {
   "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
-  "name": "claude-code-plugins",
+  "name": "iskwyuki-claude-plugins",
   "description": "iskwyuki 個人用 Claude Code アセットの配信基盤",
   "version": "0.1.0",
   "author": {
