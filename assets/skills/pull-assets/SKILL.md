@@ -1,11 +1,11 @@
 ---
 name: pull-assets
-description: 配信元リポジトリ (claude-code-plugins) の asset をプロジェクトの .claude/ へ同期する。assets/ 配下のディレクトリを動的走査するため、将来 hooks や commands が追加されても skill 本体の変更なしで対応する。
+description: 配信元リポジトリ (iskwyuki-claude-plugins) の asset をプロジェクトの .claude/ へ同期する。assets/ 配下のディレクトリを動的走査するため、将来 hooks や commands が追加されても skill 本体の変更なしで対応する。
 ---
 
 # pull-assets
 
-Plugin キャッシュ `~/.claude/plugins/claude-code-plugins/assets/` の内容をプロジェクトの `.claude/` にコピーする skill。2 回目以降の継続運用で使う。
+Plugin キャッシュ `~/.claude/plugins/iskwyuki-claude-plugins/assets/` の内容をプロジェクトの `.claude/` にコピーする skill。2 回目以降の継続運用で使う。
 
 ## 使い方
 
@@ -24,17 +24,17 @@ Plugin キャッシュ `~/.claude/plugins/claude-code-plugins/assets/` の内容
 ### Step 2: 配信元キャッシュの存在確認
 
 ```
-test -d ~/.claude/plugins/claude-code-plugins/assets || echo "MISSING"
+test -d ~/.claude/plugins/iskwyuki-claude-plugins/assets || echo "MISSING"
 ```
 
 `MISSING` の場合は以下を案内して終了:
 1. `/plugin marketplace update` で最新化
-2. `/plugin install claude-code-plugins@iskwyuki` で再 install
+2. `/plugin install iskwyuki-claude-plugins@iskwyuki-claude-plugins` で再 install
 
 ### Step 3: 配布対象ディレクトリの動的走査
 
 ```
-ls -1 ~/.claude/plugins/claude-code-plugins/assets/
+ls -1 ~/.claude/plugins/iskwyuki-claude-plugins/assets/
 ```
 
 出力された各ディレクトリを配布対象として扱う。`--only=<dir>` 指定時はそのディレクトリだけに絞る。
@@ -46,7 +46,7 @@ ls -1 ~/.claude/plugins/claude-code-plugins/assets/
 対象ディレクトリごとに rsync の dry-run で差分を表示する。
 
 ```
-rsync -avn ~/.claude/plugins/claude-code-plugins/assets/<type>/ ./.claude/<type>/
+rsync -avn ~/.claude/plugins/iskwyuki-claude-plugins/assets/<type>/ ./.claude/<type>/
 ```
 
 出力を整形し、以下を区別して提示:
@@ -60,7 +60,7 @@ rsync -avn ~/.claude/plugins/claude-code-plugins/assets/<type>/ ./.claude/<type>
 AskUserQuestion で「同期してよいか」を確認してから実コピーする。
 
 ```
-rsync -av ~/.claude/plugins/claude-code-plugins/assets/<type>/ ./.claude/<type>/
+rsync -av ~/.claude/plugins/iskwyuki-claude-plugins/assets/<type>/ ./.claude/<type>/
 ```
 
 - `--delete` は使わない（プロジェクト固有の skill を誤って削除しないため）
@@ -72,7 +72,7 @@ rsync -av ~/.claude/plugins/claude-code-plugins/assets/<type>/ ./.claude/<type>/
 git status -- .claude/
 ```
 
-変更されたファイルの一覧を表示し、`git add .claude/ && git commit -m "chore: claude-code-plugins 同期"` を案内する。
+変更されたファイルの一覧を表示し、`git add .claude/ && git commit -m "chore: iskwyuki-claude-plugins 同期"` を案内する。
 
 ## 衝突時の取扱い
 

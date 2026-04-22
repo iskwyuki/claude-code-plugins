@@ -1,4 +1,4 @@
-# claude-code-plugins
+# iskwyuki-claude-plugins
 
 iskwyuki 個人用 Claude Code アセットの配信基盤。
 
@@ -14,9 +14,9 @@ iskwyuki 個人用 Claude Code アセットの配信基盤。
 
 ```
 /plugin marketplace add iskwyuki/claude-code-plugins
-/plugin install claude-code-plugins@iskwyuki
-/claude-code-plugins:bootstrap
-git add .claude/ && git commit -m "chore: claude-code-plugins 初回同期"
+/plugin install iskwyuki-claude-plugins@iskwyuki-claude-plugins
+/iskwyuki-claude-plugins:bootstrap
+git add .claude/ && git commit -m "chore: iskwyuki-claude-plugins 初回同期"
 ```
 
 bootstrap 完了後、プロジェクトの `.claude/` 配下に `pull-assets` / `push-asset` を含む全 asset が展開され、以降は短縮名で運用できます。
@@ -29,7 +29,7 @@ bootstrap 完了後、プロジェクトの `.claude/` 配下に `pull-assets` /
 │   ├── marketplace.json     # Plugin Marketplace 定義
 │   └── plugin.json          # plugin 定義
 ├── skills/
-│   └── bootstrap/           # /claude-code-plugins:bootstrap (初回導入の踏み台)
+│   └── bootstrap/           # /iskwyuki-claude-plugins:bootstrap (初回導入の踏み台)
 ├── assets/
 │   ├── skills/
 │   │   ├── pull-assets/     # /pull-assets (配信元 → プロジェクト)
