@@ -1,2 +1,49 @@
-# claude-code-template
-Claude Codeの機能を最大限活用するためのリポジトリテンプレート
+# claude-code-plugins
+
+iskwyuki 個人用 Claude Code アセットの配信基盤。
+
+複数リポジトリで共通利用する skills / agents / (将来的な) hooks / commands を中央管理し、Claude Code の Plugin Marketplace 機構で継続配信します。
+
+## 使い方
+
+セットアップ手順は [SETUP.md](./SETUP.md) を参照してください。
+
+### 初回導入
+
+各プロジェクトのルートで以下を 1 回だけ実行:
+
+```
+/plugin marketplace add iskwyuki/claude-code-plugins
+/plugin install claude-code-plugins@iskwyuki
+/claude-code-plugins:bootstrap
+git add .claude/ && git commit -m "chore: claude-code-plugins 初回同期"
+```
+
+bootstrap 完了後、プロジェクトの `.claude/` 配下に `pull-assets` / `push-asset` を含む全 asset が展開され、以降は短縮名で運用できます。
+
+## リポジトリ構造
+
+```
+.
+├── .claude-plugin/
+│   ├── marketplace.json     # Plugin Marketplace 定義
+│   └── plugin.json          # plugin 定義
+├── skills/
+│   └── bootstrap/           # /claude-code-plugins:bootstrap (初回導入の踏み台)
+├── assets/
+│   ├── skills/
+│   │   ├── pull-assets/     # /pull-assets (配信元 → プロジェクト)
+│   │   ├── push-asset/      # /push-asset (プロジェクト → 配信元)
+│   │   ├── review/ commit/ pr/ issue/ test/ todo/ code-review/
+│   └── agents/
+│       └── codebase-analyst.md planner.md researcher.md reviewer.md
+├── SETUP.md                 # セットアップ手順 (利用者向け)
+└── README.md
+```
+
+## 運用フロー
+
+- **配信元の更新をプロジェクトに取り込む**: `/plugin marketplace update` → `/pull-assets` → commit
+- **プロジェクトで作った asset を他リポジトリにも展開**: `/push-asset skills <name>` → 配信元で commit & push → 他リポジトリで `/pull-assets`
+
+詳細は [SETUP.md](./SETUP.md) を参照。
