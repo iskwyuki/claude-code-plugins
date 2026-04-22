@@ -76,13 +76,20 @@ export CLAUDE_PLUGINS_REPO=$HOME/workspace/claude-code-plugins
 
 ### `/plugin marketplace update` しても内容が変わらない
 
-Plugin のキャッシュを強制更新:
+version が同じだと cache が更新されないケースがある。配信元で `.claude-plugin/plugin.json` の version を bump (例: `0.2.0` → `0.3.0`) してから、利用側で以下を実行:
 
 ```
-/plugin marketplace remove iskwyuki-claude-plugins
-/plugin marketplace add iskwyuki/claude-code-plugins
+/plugin marketplace update
 /plugin install iskwyuki-claude-plugins@iskwyuki-claude-plugins
 ```
+
+もしくは cache を物理削除して強制リフレッシュ:
+
+```
+rm -rf ~/.claude/plugins/cache/iskwyuki-claude-plugins
+```
+
+その後 `/plugin install iskwyuki-claude-plugins@iskwyuki-claude-plugins` で再展開。
 
 ### `/pull-assets` で想定外の上書きが発生した
 
